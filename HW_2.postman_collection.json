@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "c3f80d55-df34-4e9f-8d15-70dbbac91f54",
+		"name": "HW_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20757161"
+	},
+	"item": [
+		{
+			"name": "the first",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"test_1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"test_2\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"This is the first responce from server!\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://162.55.220.72:5005/first",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"first"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check_status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let par_resp = pm.response.json();",
+							"",
+							"pm.test(\"check_mame\", function () {",
+							"    pm.expect(par_resp.name).to.eql(\"Ruslan\");",
+							"});",
+							"",
+							"pm.test(\"check_age\", function () {",
+							"    pm.expect(par_resp.age).to.eql(\"35\");",
+							"});",
+							"",
+							"pm.test(\"check_salary\", function () {",
+							"    pm.expect(par_resp.salary).to.eql(800);",
+							"});",
+							"",
+							"let par_req = request.data;",
+							"",
+							"",
+							"pm.test(\"check_name2\", function () {",
+							"    pm.expect(par_req.name).to.eql(par_resp.name);",
+							"});",
+							"",
+							"pm.test(\"check_age2\", function () {",
+							"    pm.expect(par_req.age).to.eql(par_resp.age);",
+							"});",
+							"",
+							"pm.test(\"check_salary2\", function () {",
+							"    pm.expect(par_resp.salary).to.equal(parseInt(par_req.salary));",
+							"});",
+							"",
+							"",
+							"pm.test(\"check_salary_after_1.5\", function () {",
+							"    pm.expect(par_resp.family.u_salary_1_5_year).to.equal(parseInt(par_req.salary)*4);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Ruslan",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "35",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "800",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/user_info_3",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"user_info_3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "object_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check_status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"let par_resp = pm.response.json();",
+							"let par_req = pm.request.url.query.toObject();",
+							"",
+							"pm.test(\"check_mame\", function () {",
+							"    pm.expect(par_resp.name).to.eql(par_req.name);",
+							"});",
+							"",
+							"pm.test(\"check_age\", function () {",
+							"    pm.expect(par_resp.age).to.eql(par_req.age);",
+							"});",
+							"",
+							"pm.test(\"check_salary\", function () {",
+							"    pm.expect(par_resp.salary).to.eql(+par_req.salary);",
+							"});",
+							"",
+							"console.log(par_resp.family);",
+							"",
+							"pm.test(\"check_dog_param_name\", function () {",
+							"    pm.expect(par_resp.family.pets.dog).to.have.property(\"name\");",
+							"});",
+							"",
+							"pm.test(\"check_dog_param_age\", function () {",
+							"    pm.expect(par_resp.family.pets.dog).to.have.property(\"age\");",
+							"});",
+							"",
+							"pm.test(\"check_dog's_name\", function () {",
+							"    pm.expect(par_resp.family.pets.dog.name).to.eql(\"Luky\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"check_dog's_age\", function () {",
+							"    pm.expect(par_resp.family.pets.dog.age).to.eql(4);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/object_info_3?age=35&salary=800&name=Ruslan",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"object_info_3"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "35"
+						},
+						{
+							"key": "salary",
+							"value": "800"
+						},
+						{
+							"key": "name",
+							"value": "Ruslan"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check_status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"let par_resp = pm.response.json();",
+							"let par_req = pm.request.url.query.toObject();",
+							"",
+							"pm.test(\"check_mame\", function () {",
+							"    pm.expect(par_resp.name).to.eql(par_req.name);",
+							"});",
+							"",
+							"pm.test(\"check_age\", function () {",
+							"    pm.expect(par_resp.age).to.eql(+par_req.age);",
+							"});",
+							"",
+							"console.log(par_req.salary);",
+							"console.log(par_resp.salary);",
+							"console.log(par_resp.salary[0]);",
+							"console.log(par_resp.salary[1], \"salary\");",
+							"console.log(par_resp.salary[2], \"salary\");",
+							"",
+							"pm.test(\"check_0_elem\", function () {",
+							"    pm.expect(par_resp.salary[0]).to.eql(+par_req.salary);",
+							"});",
+							"",
+							"pm.test(\"check_1_elem\", function () {",
+							"    pm.expect(+par_resp.salary[1]).to.eql(par_req.salary*2);",
+							"});",
+							"",
+							"pm.test(\"check_2_elem\", function () {",
+							"    pm.expect(+par_resp.salary[2]).to.eql(par_req.salary*3);",
+							"});",
+							"",
+							"pm.environment.set(\"name\", par_req.name);",
+							"pm.environment.set(\"age\", par_req.age);",
+							"pm.environment.set(\"salary\", par_req.salary);",
+							"",
+							"// let arr_length = par_resp.salary.length;",
+							"// let element = 0;",
+							"",
+							"// while(element < arr_length){",
+							"// console.log(par_resp.salary[element]);",
+							"// element ++;",
+							"// };",
+							"",
+							"",
+							"for(let element = 0; element < par_resp.salary.length; element++){",
+							"    console.log(par_resp.salary[element]);    ",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/object_info_4?name=Ruslan&age=35&salary=800",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Ruslan"
+						},
+						{
+							"key": "age",
+							"value": "35"
+						},
+						{
+							"key": "salary",
+							"value": "800"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check_status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let par_resp = pm.response.json();",
+							"let par_req = request.data;",
+							"",
+							"pm.test(\"check_person_param\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"person\");",
+							"});",
+							"",
+							"pm.test(\"check_start_qa_salary\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"start_qa_salary\");",
+							"});",
+							"",
+							"pm.test(\"check_qa_salary_after_6_months\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"qa_salary_after_6_months\");",
+							"});",
+							"",
+							"pm.test(\"check_qa_salary_after_12_months\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"qa_salary_after_12_months\");",
+							"});",
+							"",
+							"pm.test(\"check_qa_salary_after_1.5_year\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"qa_salary_after_1.5_year\");",
+							"});",
+							"",
+							"pm.test(\"check_qa_salary_after_3.5_years\", function () {",
+							"    pm.expect(par_resp).to.have.property(\"qa_salary_after_3.5_years\");",
+							"});",
+							"",
+							"pm.test(\"check_eql_start_qa_salary\", function () {",
+							"    pm.expect(par_resp.start_qa_salary).to.eql(+par_req.salary);",
+							"});",
+							"",
+							"pm.test(\"check_eql_salary_after_6_months\", function () {",
+							"    pm.expect(par_resp.qa_salary_after_6_months).to.eql(par_req.salary*2);",
+							"});",
+							"",
+							"pm.test(\"check_eql_salary_after_12_months\", function () {",
+							"    pm.expect(par_resp.qa_salary_after_12_months).to.eql(par_req.salary*2.7);",
+							"});",
+							"",
+							"",
+							"pm.test(\"check_eql_salary_after_1.5_year\", function () {",
+							"    pm.expect(par_resp['qa_salary_after_1.5_year']).to.eql(par_req.salary*3.3);",
+							"});",
+							"",
+							"",
+							"pm.test(\"check_eql_salary_after_3.5_years\", function () {",
+							"    pm.expect(par_resp['qa_salary_after_3.5_years']).to.eql(par_req.salary*3.8);",
+							"    });",
+							"",
+							"pm.test(\"check_eql_u_name_1_elem\", function () {",
+							"    pm.expect(par_resp.person.u_name[1]).to.eql(+par_req.salary);",
+							"    });",
+							"",
+							"pm.test(\"check_eql_u_age\", function () {",
+							"    pm.expect(par_resp.person.u_age).to.eql(+par_req.age);",
+							"    });",
+							"",
+							"pm.test(\"check_eql_u_salary_5_years\", function () {",
+							"    pm.expect(par_resp.person.u_salary_5_years).to.eql(par_req.salary*4.2);",
+							"});",
+							"",
+							"let object = par_resp.person",
+							"",
+							"for (let key in object) {",
+							"  console.log(key); ",
+							"  console.log(object[key]); ",
+							"}",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/user_info_2",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
